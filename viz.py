@@ -18,3 +18,17 @@ clf.fit(train_data, train_target)
 
 print test_target
 print clf.predict(test_data)
+
+#viz code
+from sklearn.externals.six import StringIO
+import pydot
+dot_data = StringIO()
+tree.export_graphviz(clf,
+			out_file=dot_data,
+			feature_names=iris.feature_names,
+			class_names=iris.target_names,
+			filled=True, rounded=True,
+			impurity=False)
+
+graph = pydot.graph_from_dot_data(dot_data.getvalue())
+graph[0].write_pdf("iris.pdf")
